@@ -220,3 +220,4 @@ venv/
 get-pip.py
 __pycache__/
 .env
+.env
