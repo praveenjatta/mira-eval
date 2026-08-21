@@ -1,0 +1,146 @@
+[
+  {
+    "test_id": "T1",
+    "agent": "Planner",
+    "scores": {
+      "groundedness": 1.0,
+      "completeness": 1.0,
+      "accuracy": 1.0,
+      "overall": 1.0,
+      "verdict": "PASS",
+      "issues": "None"
+    }
+  },
+  {
+    "test_id": "T2",
+    "agent": "Risk Assessor",
+    "scores": {
+      "groundedness": 1.0,
+      "completeness": 0.8,
+      "accuracy": 1.0,
+      "overall": 0.9333333333333333,
+      "verdict": "PASS",
+      "issues": "R04 and R05 are not part of the required risk register references, but the output still meets the pass criteria by referencing R01, R02, and R03."
+    }
+  },
+  {
+    "test_id": "T3",
+    "agent": "Risk Assessor",
+    "scores": {
+      "groundedness": 1.0,
+      "completeness": 1.0,
+      "accuracy": 1.0,
+      "overall": 1.0,
+      "verdict": "PASS",
+      "issues": "None"
+    }
+  },
+  {
+    "test_id": "T4",
+    "agent": "Planner",
+    "scores": {
+      "groundedness": 1.0,
+      "completeness": 1.0,
+      "accuracy": 1.0,
+      "overall": 1.0,
+      "verdict": "PASS",
+      "issues": "None"
+    }
+  },
+  {
+    "test_id": "T5",
+    "agent": "Status Reporter",
+    "scores": {
+      "groundedness": 1.0,
+      "completeness": 1.0,
+      "accuracy": 1.0,
+      "overall": 1.0,
+      "verdict": "PASS",
+      "issues": "None"
+    }
+  },
+  {
+    "test_id": "T6",
+    "agent": "Status Reporter",
+    "scores": {
+      "groundedness": 1.0,
+      "completeness": 1.0,
+      "accuracy": 1.0,
+      "overall": 1.0,
+      "verdict": "PASS",
+      "issues": "None"
+    }
+  },
+  {
+    "test_id": "T7",
+    "agent": "Risk Assessor",
+    "scores": {
+      "groundedness": 1.0,
+      "completeness": 1.0,
+      "accuracy": 1.0,
+      "overall": 1.0,
+      "verdict": "PASS",
+      "issues": "None"
+    }
+  },
+  {
+    "test_id": "T8",
+    "agent": "Milestone Tracker",
+    "scores": {
+      "groundedness": 1.0,
+      "completeness": 1.0,
+      "accuracy": 1.0,
+      "overall": 1.0,
+      "verdict": "PASS",
+      "issues": "None"
+    }
+  },
+  {
+    "test_id": "T9",
+    "agent": "Milestone Tracker",
+    "scores": {
+      "groundedness": 1.0,
+      "completeness": 1.0,
+      "accuracy": 1.0,
+      "overall": 1.0,
+      "verdict": "PASS",
+      "issues": "None"
+    }
+  },
+  {
+    "test_id": "T10",
+    "agent": "Risk Assessor",
+    "scores": {
+      "groundedness": 1.0,
+      "completeness": 1.0,
+      "accuracy": 1.0,
+      "overall": 1.0,
+      "verdict": "PASS",
+      "issues": "None"
+    }
+  },
+  {
+    "test_id": "T11",
+    "agent": "Milestone Tracker",
+    "scores": {
+      "groundedness": 1.0,
+      "completeness": 1.0,
+      "accuracy": 1.0,
+      "overall": 1.0,
+      "verdict": "PASS",
+      "issues": "None"
+    }
+  },
+  {
+    "test_id": "T12",
+    "agent": "Stakeholder Update",
+    "scores": {
+      "groundedness": 1.0,
+      "completeness": 1.0,
+      "accuracy": 1.0,
+      "overall": 1.0,
+      "verdict": "PASS",
+      "issues": "None"
+    }
+  }
+]

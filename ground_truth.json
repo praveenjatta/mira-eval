@@ -1,0 +1,100 @@
+{
+  "tests": [
+    {
+      "test_id": "T1",
+      "agent": "Planner",
+      "user_request": "Generate a project plan for the AI Adoption Project at ABCDE Ltd. Use the provided project description.",
+      "expected_keywords": ["Phase 1", "Phase 2", "Phase 3", "Phase 4", "Phase 5", "Phase 6", "Phase 7", "Phase 8", "24 weeks", "ABCDE"],
+      "must_not_contain": ["hallucinated", "invented"],
+      "pass_criteria": "Must reference all 8 phases and 24-week timeline from the project data"
+    },
+    {
+      "test_id": "T2",
+      "agent": "Risk Assessor",
+      "user_request": "What are the top risks in the AI Adoption Project?",
+      "expected_keywords": ["R01", "R02", "R03", "Data Quality", "Integration", "Talent"],
+      "must_not_contain": [],
+      "pass_criteria": "Must reference at least 3 real risks from the risk register R01-R10"
+    },
+    {
+      "test_id": "T3",
+      "agent": "Risk Assessor",
+      "user_request": "What mitigation strategies do we have for the top 3 risks?",
+      "expected_keywords": ["mitigation", "R01", "R02", "R03"],
+      "must_not_contain": [],
+      "pass_criteria": "Must provide mitigation strategies grounded in actual risk data"
+    },
+    {
+      "test_id": "T4",
+      "agent": "Planner",
+      "user_request": "What are the key deliverables for Phase 3 and Phase 4?",
+      "expected_keywords": ["Phase 3", "Phase 4", "use case", "pilot", "deliverable"],
+      "must_not_contain": [],
+      "pass_criteria": "Must reference correct deliverables for Phase 3 and Phase 4 from timeline data"
+    },
+    {
+      "test_id": "T5",
+      "agent": "Status Reporter",
+      "user_request": "Generate a weekly status report using the sample task board data for Sprint 3.",
+      "expected_keywords": ["T024", "BLOCKED", "Security review", "Sprint 3", "In Progress", "To Do"],
+      "must_not_contain": ["no blocked tasks", "no blockers"],
+      "pass_criteria": "Must identify T024 as BLOCKED and report correct Sprint 3 task statuses"
+    },
+    {
+      "test_id": "T6",
+      "agent": "Status Reporter",
+      "user_request": "How many tasks are Done, In Progress, and To Do?",
+      "expected_keywords": ["5", "3", "16", "Done", "In Progress", "To Do"],
+      "must_not_contain": [],
+      "pass_criteria": "Must report exact counts: 5 Done, 3 In Progress, 16 To Do, 1 Blocked"
+    },
+    {
+      "test_id": "T7",
+      "agent": "Risk Assessor",
+      "user_request": "Are there any high impact risks we should escalate?",
+      "expected_keywords": ["high", "impact", "risk", "escalate"],
+      "must_not_contain": [],
+      "pass_criteria": "Must identify high impact risks from the risk register with escalation recommendation"
+    },
+    {
+      "test_id": "T8",
+      "agent": "Milestone Tracker",
+      "user_request": "What milestones have been completed so far?",
+      "expected_keywords": ["Phase 1", "Phase 2", "milestone", "completed", "charter", "audit"],
+      "must_not_contain": [],
+      "pass_criteria": "Must reference completed milestones grounded in project timeline data"
+    },
+    {
+      "test_id": "T9",
+      "agent": "Milestone Tracker",
+      "user_request": "What is the current project phase and what comes next?",
+      "expected_keywords": ["Phase", "next", "week", "milestone"],
+      "must_not_contain": [],
+      "pass_criteria": "Must identify current phase and next phase from timeline data"
+    },
+    {
+      "test_id": "T10",
+      "agent": "Risk Assessor",
+      "user_request": "Generate a full risk assessment report for all 10 risks.",
+      "expected_keywords": ["R01", "R02", "R03", "R04", "R05", "R06", "R07", "R08", "R09", "R10"],
+      "must_not_contain": [],
+      "pass_criteria": "Must reference all 10 risks R01-R10 from the risk register"
+    },
+    {
+      "test_id": "T11",
+      "agent": "Milestone Tracker",
+      "user_request": "What milestones are coming up in the next 2 weeks?",
+      "expected_keywords": ["milestone", "week", "Phase", "upcoming"],
+      "must_not_contain": [],
+      "pass_criteria": "Must provide milestones with date anchor or acknowledge date context limitation"
+    },
+    {
+      "test_id": "T12",
+      "agent": "Stakeholder Update",
+      "user_request": "Generate a stakeholder update email summarizing Sprint 2 progress.",
+      "expected_keywords": ["Sprint 2", "stakeholder", "T024", "BLOCKED", "Priya Nair", "James Wong"],
+      "must_not_contain": ["Sprint 1", "no blockers", "no significant blockers"],
+      "pass_criteria": "Must cover Sprint 2 tasks only, identify T024 as BLOCKED, exclude Sprint 1 tasks"
+    }
+  ]
+}
