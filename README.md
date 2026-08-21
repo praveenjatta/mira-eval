@@ -1,142 +1,119 @@
-# mira-eval
+# 🧠 mira-eval
 
-> LLM-judge evaluation framework for **Mira — Project Intelligence Assistant**  
-> Built as part of the Applied Agentic AI for PMs/TPMs capstone project
-
----
-
-## Overview
-
-`mira-eval` is a Python-based evaluation framework that uses **GPT-4o-mini as an LLM judge** to score the outputs of Mira, a multi-agent AI system built in n8n. It evaluates all 12 baseline test cases against a ground truth dataset across 3 metrics: Groundedness, Completeness, and Accuracy.
+An LLM-judge evaluation framework for **Mira — Project Intelligence Assistant**, a multi-agent AI system built in n8n. Uses GPT-4o-mini as an automated judge to score outputs across 12 test cases against a ground truth dataset.
 
 ---
 
-## Project Structure
+## 🧩 The Problem It Solves
+
+How do you know if your AI agent is actually working? Manual review of 12 test cases across 5 specialized agents is slow, inconsistent, and hard to repeat. `mira-eval` automates the entire evaluation loop — load the outputs, run the judge, get objective scores, fix the prompts, repeat.
+
+One script. Twelve tests. Three metrics. Fully automated.
+
+---
+
+## 🔬 How It Works
 
 ```
-mira-eval/
-├── eval_mira.py                 # Main evaluation script (LLM judge)
-├── ground_truth.json            # 12 test cases with expected outputs & criteria
-├── requirements.txt             # Python dependencies
-├── results/
-│   ├── eval_results.json        # Raw scores from LLM judge
-│   ├── baseline_scores.md       # Scores before prompt engineering fixes
-│   └── after_fixes_scores.md    # Scores after prompt engineering fixes
-└── .gitignore
+ground_truth.json         → 12 test cases with expected keywords & pass criteria
+    ↓
+eval_mira.py              → Loads test cases + Mira outputs
+    ↓
+LLM Judge (gpt-4o-mini)   → Scores each output on 3 metrics
+    ↓
+Results printed to console + saved to results/eval_results.json
+    ↓
+Fix prompts in n8n → Re-run → Re-score → Repeat
 ```
 
 ---
 
-## Evaluation Metrics
+## 🏗️ Project Structure
 
-Each test case is scored on 3 dimensions:
+| File / Folder | Description |
+|---------------|-------------|
+| `eval_mira.py` | Main evaluation script — LLM judge logic |
+| `ground_truth.json` | 12 test cases with expected outputs & pass criteria |
+| `requirements.txt` | Python dependencies |
+| `results/eval_results.json` | Raw scores from LLM judge (latest run) |
+| `results/baseline_scores.md` | Scores before any prompt engineering fixes |
+| `results/after_fixes_scores.md` | Scores after all prompt engineering fixes |
+
+---
+
+## 📊 Evaluation Metrics
+
+Each test case is scored on 3 dimensions (0.0 to 1.0):
 
 | Metric | Description |
 |--------|-------------|
-| **Groundedness** | Is the output grounded in actual project data? |
-| **Completeness** | Does it cover all expected keywords and pass criteria? |
-| **Accuracy** | Is the information correct? Does it avoid must-not-contain items? |
+| 🎯 **Groundedness** | Is the output grounded in actual project data? No hallucinations? |
+| ✅ **Completeness** | Does it cover all expected keywords and meet the pass criteria? |
+| 🔍 **Accuracy** | Is the information correct? Does it avoid must-not-contain phrases? |
 
-Overall score = average of all 3 metrics (0.0 to 1.0 scale).
+> Overall score = average of all 3 metrics
 
 ---
 
-## Results Summary
+## 📈 Results Summary
 
 | Phase | Overall Score | Pass Rate |
-|-------|--------------|-----------|
-| Baseline (before fixes) | 0.89 | 10 / 12 |
-| After Prompt Engineering | **0.99** | **12 / 12** |
-
-### Failures Fixed via Prompt Engineering
-
-| Test | Agent | Issue | Fix Applied | Score Change |
-|------|-------|-------|-------------|-------------|
-| T5 | Status Reporter | Missed T024 BLOCKED task; said "no blocked tasks" | Added BLOCKED TASK RULE + SPRINT FILTER RULE to system prompt | 0.17 → 1.00 |
-| T12 | Stakeholder Update | Sprint 1 bleed-in + missed T024 blocker | Added SPRINT SCOPE RULE + BLOCKER RULE + updated guardrail | 0.63 → 1.00 |
-
-### Fix Ladder Approach
-
-Fixes were applied using a 5-level optimization ladder:
-
-| Level | Approach | Used? |
-|-------|----------|-------|
-| L1 | Prompt Engineering | ✅ Yes — solved both failures |
-| L2 | Pipeline Restructuring | Not needed |
-| L3 | Model Swapping | Not needed |
-| L4 | RAG / Better Grounding | Not needed |
-| L5 | Fine-Tuning | Not needed |
-
-Both T5 and T12 were fully resolved at **Lever 1 — Prompt Engineering only**.
+|-------|:------------:|:---------:|
+| 🔴 Baseline (before fixes) | 0.89 | 10 / 12 |
+| 🟢 After Prompt Engineering | **0.99** | **12 / 12** |
 
 ---
 
-## Agents Evaluated
+## 🔧 Failures Fixed
 
-| Agent | Tests | Final Score |
-|-------|-------|-------------|
-| Planner | T1, T4 | 1.00 |
-| Risk Assessor | T2, T3, T7, T10 | 0.93 – 1.00 |
-| Status Reporter | T5, T6 | 1.00 (after fix) |
-| Milestone Tracker | T8, T9, T11 | 1.00 |
-| Stakeholder Update | T12 | 1.00 (after fix) |
+### ❌ T5 — Status Reporter (0.17 → ✅ 1.00)
 
----
+**Issue:** Agent reported "no blocked tasks" for Sprint 3 — missed T024 (Security review, BLOCKED).
 
-## Setup
-
-```bash
-# Clone the repo
-git clone https://github.com/praveenjatta/mira-eval.git
-cd mira-eval
-
-# Create virtual environment (Python 3.11)
-python3.11 -m venv venv --without-pip
-source venv/bin/activate
-curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
-python get-pip.py
-
-# Install dependencies
-python3.11 -m pip install -r requirements.txt
-
-# Add your OpenAI API key
-echo "OPENAI_API_KEY=your-key-here" > .env
-```
+**Fix (Lever 1 — Prompt Engineering):**
+- Added `BLOCKED TASK RULE` — scan entire task board before finalizing any report
+- Added `SPRINT FILTER RULE` — sprint-specific counts must reflect only that sprint's tasks
 
 ---
 
-## Usage
+### ❌ T12 — Stakeholder Update (0.63 → ✅ 1.00)
 
-```bash
-python3.11 eval_mira.py
-```
+**Issue:** Included Sprint 1 tasks (bleed-in), said "no significant blockers" — missed T024.
 
-The script will:
-
-1. Load all 12 test cases from `ground_truth.json`
-2. Score each Mira output using GPT-4o-mini as LLM judge
-3. Print a detailed results table to console
-4. Save raw scores to `results/eval_results.json`
-
-### Sample Output
-
-```
-============================================================
-MIRA EVALUATION REPORT — LLM Judge (gpt-4o-mini)
-============================================================
-Evaluating T1 — Planner...
-✅ T1 | Groundedness: 1.00 | Completeness: 1.00 | Accuracy: 1.00 | Overall: 1.00 | PASS
-...
-✅ T12 | Groundedness: 1.00 | Completeness: 1.00 | Accuracy: 1.00 | Overall: 1.00 | PASS
-============================================================
-OVERALL AVERAGE SCORE: 0.99
-TESTS EVALUATED: 12
-============================================================
-```
+**Fix (Lever 1 — Prompt Engineering):**
+- Added `SPRINT SCOPE RULE` — include only tasks whose Sprint field exactly matches
+- Added `BLOCKER RULE` — always surface BLOCKED tasks regardless of sprint requested
+- Updated `CRITICAL GUARDRAIL` — only trigger on truly empty project data
 
 ---
 
-## Tech Stack
+## 🪜 Fix Ladder Applied
+
+| Level | Approach | Status |
+|-------|----------|--------|
+| **L1** | 🔧 Prompt Engineering | ✅ Used — solved both failures |
+| L2 | 🔗 Pipeline Restructuring | ⏭️ Not needed |
+| L3 | 🔄 Model Swapping | ⏭️ Not needed |
+| L4 | 📚 RAG / Better Grounding | ⏭️ Not needed |
+| L5 | 🎯 Fine-Tuning | ⏭️ Not needed |
+
+> Both T5 and T12 were fully resolved at **Lever 1 — Prompt Engineering only**. No fine-tuning required.
+
+---
+
+## 🤖 Agents Evaluated
+
+| Agent | Test IDs | Final Score |
+|-------|----------|:-----------:|
+| 🗓️ Planner | T1, T4 | 1.00 |
+| ⚠️ Risk Assessor | T2, T3, T7, T10 | 0.93 – 1.00 |
+| 📋 Status Reporter | T5, T6 | 1.00 ✅ (fixed) |
+| 🏁 Milestone Tracker | T8, T9, T11 | 1.00 |
+| 📧 Stakeholder Update | T12 | 1.00 ✅ (fixed) |
+
+---
+
+## 🛠️ Tech Stack
 
 | Tool | Purpose |
 |------|---------|
@@ -147,27 +124,97 @@ TESTS EVALUATED: 12
 
 ---
 
-## Ground Truth Dataset
+## 🚀 Setup & Usage
 
-The `ground_truth.json` file contains 12 test cases covering all 5 Mira agents. Each test case includes:
+**Prerequisites:**
+- Python 3.11
+- OpenAI API key
 
-- `test_id` — unique identifier (T1–T12)
-- `agent` — which Mira agent is being evaluated
-- `user_request` — the input sent to Mira
-- `expected_keywords` — keywords that must appear in the output
-- `must_not_contain` — phrases that must not appear
-- `pass_criteria` — plain English description of what a passing response looks like
+**Setup Steps:**
+
+1. Clone the repo:
+```bash
+git clone https://github.com/praveenjatta/mira-eval.git
+cd mira-eval
+```
+
+2. Create virtual environment:
+```bash
+python3.11 -m venv venv --without-pip
+source venv/bin/activate
+curl https://bootstrap.pypa.io/get-pip.py -o get-pip.py
+python get-pip.py
+```
+
+3. Install dependencies:
+```bash
+python3.11 -m pip install -r requirements.txt
+```
+
+4. Add your OpenAI API key:
+```bash
+echo "OPENAI_API_KEY=your-key-here" > .env
+```
+
+5. Run the evaluation:
+```bash
+python3.11 eval_mira.py
+```
 
 ---
 
-## Related Projects
+## 📋 Sample Output
 
-- [mira-project-intelligence-agent](https://github.com/praveenjatta/mira-project-intelligence-agent) — The main Mira n8n workflow (capstone project)
+```
+============================================================
+MIRA EVALUATION REPORT — LLM Judge (gpt-4o-mini)
+============================================================
+Evaluating T1 — Planner...
+✅ T1 | Groundedness: 1.00 | Completeness: 1.00 | Accuracy: 1.00 | Overall: 1.00 | PASS
+Evaluating T5 — Status Reporter...
+✅ T5 | Groundedness: 1.00 | Completeness: 1.00 | Accuracy: 1.00 | Overall: 1.00 | PASS
+Evaluating T12 — Stakeholder Update...
+✅ T12 | Groundedness: 1.00 | Completeness: 1.00 | Accuracy: 1.00 | Overall: 1.00 | PASS
+============================================================
+OVERALL AVERAGE SCORE: 0.99
+TESTS EVALUATED: 12
+============================================================
+Results saved to results/eval_results.json
+```
 
 ---
 
-## Author
+## 🔑 Key Design Decisions
 
-**Praveen Kumar Jatta** — Senior TPM | PMP® CSPO® SMC®
+**GPT-4o-mini as judge** — Fast, cost-effective, and consistent. Temperature set to 0 for deterministic scoring across runs.
 
-[JattaAI](https://jattaai.com) | [LinkedIn](https://linkedin.com/in/praveenjatta) | [GitHub](https://github.com/praveenjatta)
+**3-metric scoring** — Groundedness, Completeness, and Accuracy each capture a different failure mode. A single score would mask partial failures.
+
+**must-not-contain guardrail** — Certain phrases (like "no blocked tasks") are hard failures regardless of other quality signals. The judge checks these explicitly.
+
+**Fix ladder discipline** — Prompt engineering is always tried first before reaching for heavier solutions. This keeps the system simple and maintainable.
+
+**Separation of concerns** — Evaluation lives in its own repo (`mira-eval`) separate from the workflow (`mira-project-intelligence-agent`). Each can evolve independently.
+
+---
+
+## 🔗 Related Projects
+
+- 🤖 [mira-project-intelligence-agent](https://github.com/praveenjatta/mira-project-intelligence-agent) — The main Mira n8n workflow (capstone project)
+
+---
+
+## 👤 Author
+
+**Praveen Kumar Jatta** — Senior Technical Program Manager | AI Automation Consultant
+
+- 🌐 [jattaai.com](https://jattaai.com)
+- 💼 [linkedin.com/in/praveenjatta](https://linkedin.com/in/praveenjatta)
+- 🐙 [github.com/praveenjatta](https://github.com/praveenjatta)
+- 📅 [Book a free discovery call](https://calendly.com/praveenjatta/free-ai-automation-discovery-call)
+
+---
+
+## 📄 License
+
+MIT License — free to use and modify with attribution.
