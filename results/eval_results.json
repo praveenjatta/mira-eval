@@ -13,36 +13,36 @@
   },
   {
     "test_id": "T2",
-    "agent": "Risk Assessor",
+    "agent": "Planner",
     "scores": {
-      "groundedness": 1.0,
-      "completeness": 0.8,
+      "groundedness": 0.0,
+      "completeness": 1.0,
       "accuracy": 1.0,
-      "overall": 0.9333333333333333,
+      "overall": 0.67,
       "verdict": "PASS",
-      "issues": "R04 and R05 are not part of the required risk register references, but the output still meets the pass criteria by referencing R01, R02, and R03."
+      "issues": "None"
     }
   },
   {
     "test_id": "T3",
     "agent": "Risk Assessor",
     "scores": {
-      "groundedness": 1.0,
+      "groundedness": 0.8,
       "completeness": 1.0,
       "accuracy": 1.0,
-      "overall": 1.0,
+      "overall": 0.9333333333333333,
       "verdict": "PASS",
-      "issues": "None"
+      "issues": "The output is well-structured and covers all expected keywords and risks. However, it lacks specific references to actual project data, which slightly affects the groundedness score."
     }
   },
   {
     "test_id": "T4",
-    "agent": "Planner",
+    "agent": "Risk Assessor",
     "scores": {
-      "groundedness": 1.0,
+      "groundedness": 0.0,
       "completeness": 1.0,
       "accuracy": 1.0,
-      "overall": 1.0,
+      "overall": 0.67,
       "verdict": "PASS",
       "issues": "None"
     }
@@ -63,10 +63,10 @@
     "test_id": "T6",
     "agent": "Status Reporter",
     "scores": {
-      "groundedness": 1.0,
+      "groundedness": 0.0,
       "completeness": 1.0,
       "accuracy": 1.0,
-      "overall": 1.0,
+      "overall": 0.6666666666666666,
       "verdict": "PASS",
       "issues": "None"
     }
@@ -97,19 +97,19 @@
   },
   {
     "test_id": "T9",
-    "agent": "Milestone Tracker",
+    "agent": "Planner",
     "scores": {
-      "groundedness": 1.0,
+      "groundedness": 0.0,
       "completeness": 1.0,
       "accuracy": 1.0,
-      "overall": 1.0,
+      "overall": 0.67,
       "verdict": "PASS",
       "issues": "None"
     }
   },
   {
     "test_id": "T10",
-    "agent": "Risk Assessor",
+    "agent": "Status Reporter",
     "scores": {
       "groundedness": 1.0,
       "completeness": 1.0,
@@ -123,12 +123,12 @@
     "test_id": "T11",
     "agent": "Milestone Tracker",
     "scores": {
-      "groundedness": 1.0,
+      "groundedness": 0.8,
       "completeness": 1.0,
-      "accuracy": 1.0,
-      "overall": 1.0,
+      "accuracy": 0.9,
+      "overall": 0.9,
       "verdict": "PASS",
-      "issues": "None"
+      "issues": "The output includes milestones from Phase 3 that are not within the next 2 weeks, which slightly affects groundedness and accuracy."
     }
   },
   {
@@ -136,11 +136,11 @@
     "agent": "Stakeholder Update",
     "scores": {
       "groundedness": 1.0,
-      "completeness": 1.0,
+      "completeness": 0.8,
       "accuracy": 1.0,
-      "overall": 1.0,
+      "overall": 0.9333333333333333,
       "verdict": "PASS",
-      "issues": "None"
+      "issues": "Missing explicit mention of 'Sprint 2' in the body and did not include all expected keywords in a clear manner."
     }
   }
 ]

@@ -12,108 +12,191 @@ client = OpenAI(api_key=os.getenv("OPENAI_API_KEY"))
 with open("ground_truth.json", "r") as f:
     ground_truth = json.load(f)
 
-# ── Load Mira outputs (paste your T1-T12 outputs here) ──────────────────────
+# ── Load Mira outputs (updated with Phase 5 re-run outputs) ──────────────────
 mira_outputs = {
-    "T1": """Here's the structured project plan for the AI Adoption Project at ABCDE Ltd.:
+    "T1": """Project Plan for AI Adoption Project at ABCDE Ltd.
 
-Phase 1: Project Initiation (Weeks 1-2): Define project scope and objectives, Form cross-functional task force, Conduct initial stakeholder alignment meeting. Milestone: Project charter signed off; Team structure finalized.
-Phase 2: Current State Analysis (Weeks 3-4): Audit existing data infrastructure, Map current logistics workflows, Identify data gaps and quality issues. Milestone: Current systems audit report; Gap analysis report.
-Phase 3: Use Case Selection (Weeks 5-6): Shortlist AI use cases, Define success criteria, Evaluate vendors. Milestone: Final list of prioritized use cases.
-Phase 4: Pilot Design (Weeks 7-10): Collect historical demand data, Design demand forecasting model, Design route optimization model. Milestone: Working prototype models.
-Phase 5: Pilot Implementation (Weeks 11-14): Build model training pipeline, Deploy demand model, Run pilot. Milestone: Pilot results report.
-Phase 6: Evaluation & Iteration (Weeks 15-16): Collect pilot feedback, Iterate on model. Milestone: Updated models.
-Phase 7: Full Deployment (Weeks 17-22): Prepare production deployment, Implement staff training, Execute rollout. Milestone: Full production rollout.
-Phase 8: Monitoring & Review (Weeks 23-24): Set up continuous monitoring, Compile project closure report. Milestone: Project closure report.""",
+Phase 1: Project Initiation - Week Range: Weeks 1-2
+Key Activities: Define project scope and objectives. Form cross-functional task force. Conduct initial stakeholder alignment meeting.
+Milestone/Deliverable: Project charter signed off; Team structure finalized.
 
-    "T2": """Top risks in the AI Adoption Project:
-R01 - Data Quality & Availability: Poor model performance risk. Mitigation: Early data audits and data governance.
-R02 - Integration Issues: Deployment delays risk. Mitigation: Integration roadmap, APIs/middleware.
-R03 - Talent & Skills Gap: Vendor overreliance risk. Mitigation: Staff training, hire specialists.
-R04 - Change Management: Low adoption risk. Mitigation: Change management plan, training programs.
-R05 - Vendor Lock-in: Flexibility risk. Mitigation: Multi-vendor strategy.""",
+Phase 2: Current State Analysis - Week Range: Weeks 3-4
+Key Activities: Audit existing data infrastructure. Map current logistics workflows. Identify data gaps and quality issues.
+Milestone/Deliverable: Current systems audit report; Gap analysis report.
 
-    "T3": """Mitigation strategies for top 3 risks:
-R01 - Data Quality: Early data audits and governance framework implementation before model training begins.
-R02 - Integration Issues: Detailed integration roadmap with APIs/middleware layer to connect AI systems with legacy infrastructure.
-R03 - Talent & Skills Gap: Staff training program plus hiring of AI specialists to reduce vendor overreliance.""",
+Phase 3: Use Case Selection - Week Range: Weeks 5-6
+Key Activities: Shortlist AI use cases. Define success criteria for each use case. Conduct vendor evaluation for ML platform.
+Milestone/Deliverable: Final list of prioritized use cases with success criteria.
 
-    "T4": """Key deliverables for Phase 3 and Phase 4:
-Phase 3 - Use Case Selection (Weeks 5-6): Final list of prioritized AI use cases with success criteria, Vendor evaluation report.
-Phase 4 - Pilot Design (Weeks 7-10): Working prototype models for demand forecasting and route optimization, Data pipelines established, Model design documentation.""",
+Phase 4: Pilot Design - Week Range: Weeks 7-10
+Key Activities: Collect historical demand data. Develop data cleaning and preprocessing pipeline. Design demand forecasting and route optimization models. Build model training pipeline.
+Milestone/Deliverable: Working prototype models; Data pipelines established.
 
-    "T5": """Weekly Status Report for Sprint 3
+Phase 5: Pilot Implementation - Week Range: Weeks 11-14
+Key Activities: Deploy demand model to test environment. Run pilot with logistics team. Collect pilot feedback and metrics.
+Milestone/Deliverable: Pilot results report; User feedback and performance metrics.
 
-Done (0)
+Phase 6: Evaluation and Iteration - Week Range: Weeks 15-16
+Key Activities: Iterate on model based on feedback.
+Milestone/Deliverable: Updated models and process refinements.
 
-In Progress (1)
-- Task T007: Shortlist AI use cases | ASSIGNEE: Arjun Mehta
+Phase 7: Full Deployment - Week Range: Weeks 17-22
+Key Activities: Prepare production deployment plan. Implement staff training program. Full production rollout.
+Milestone/Deliverable: Full production rollout; Training sessions completed.
+
+Phase 8: Monitoring and Review - Week Range: Weeks 23-24
+Key Activities: Set up continuous monitoring. Prepare project closure report.
+Milestone/Deliverable: Project closure report; Recommendations for future scaling.""",
+
+    "T2": """INSUFFICIENT INFORMATION: I need more detail to create a grounded plan. Please provide the following:
+
+1. Project scope (specific functionalities and goals for the chatbot).
+2. Timeline or duration for the project.
+3. Any phases or milestones you have in mind.
+4. Team members involved or required resources.
+5. Any specific challenges or risks you foresee.""",
+
+    "T3": """Risk Assessment for AI Adoption Project at ABCDE Ltd.
+
+| Category | Risk Description | Impact | Mitigation |
+|----------|-----------------|--------|------------|
+| Data Quality and Availability | Incomplete or unstructured data. | Poor model performance. | Early data audits and data governance. |
+| Integration Issues | Difficulty integrating AI with legacy systems. | Deployment delays. | Integration roadmap, APIs/middleware. |
+| Talent and Skills Gap | Lack of internal AI/ML expertise. | Vendor overreliance, slow progress. | Staff training, hire specialists. |
+| Change Resistance | Employees resist AI workflows. | Low adoption, reduced ROI. | Change management, early engagement. |
+| Ethical and Legal Concerns | Biased models or data privacy violations. | Legal and reputational damage. | Involve legal early, fairness checks. |
+| Cost Overruns | Underestimation of AI costs. | Budget constraints, delays. | Realistic budget, contingency funds. |
+| Unrealistic Expectations | Stakeholders expect immediate ROI. | Disillusionment, loss of support. | Align expectations, show quick wins. |
+| Model Performance Drift | Models lose accuracy over time. | Incorrect decisions, trust erosion. | Regular retraining, monitoring dashboards. |
+| Security Vulnerabilities | Models targeted by adversarial attacks. | Data breaches. | AI security best practices, penetration testing. |
+| Vendor Lock-in | Overdependence on one platform. | Flexibility loss, switching costs. | Open standards, flexible vendor terms. |""",
+
+    "T4": """INSUFFICIENT INFORMATION: I need more detail to assess risks. Please provide the following:
+
+1. Project description or scope.
+2. Specific goals or objectives of the project.
+3. Timeline or phases of the project.
+4. Any known risks or concerns already identified.""",
+
+    "T5": """Sprint 3 Status Report
+
+Tasks Overview:
+1. Task T007 | STATUS: In Progress
+2. Task T008 | STATUS: To Do
+3. Task T009 | STATUS: To Do
+4. Task T025 | STATUS: In Progress
+
+Grouped by Status:
+
+In Progress (2)
+- Task T007 | STATUS: In Progress
+- Task T025 | STATUS: In Progress
 
 To Do (2)
-- Task T008: Define success criteria for each use case | ASSIGNEE: Sarah Lin
-- Task T009: Vendor evaluation for ML platform | ASSIGNEE: James Wong
+- Task T008 | STATUS: To Do
+- Task T009 | STATUS: To Do
 
-BLOCKERS:
-- Task T024: Security review of AI infrastructure | STATUS: BLOCKED | ASSIGNEE: James Wong | Note: waiting for security team availability.""",
+BLOCKERS
+- Task T024 | STATUS: BLOCKED | Assignee: James Wong | Note: waiting for security team availability""",
 
-    "T6": """Current task board summary:
-Done: 5 tasks
-In Progress: 3 tasks
-To Do: 16 tasks
-Total: 24 tasks""",
+    "T6": """INSUFFICIENT INFORMATION: I need task data to generate a status report.""",
 
-    "T7": """High impact risks requiring escalation:
-R01 - Data Quality & Availability: HIGH impact - Poor model performance if not addressed early.
-R02 - Integration Issues: HIGH impact - Could cause significant deployment delays.
-R03 - Talent & Skills Gap: HIGH impact - Risk of vendor overreliance and slow progress.
-Recommendation: Escalate R01, R02, R03 to project steering committee immediately.""",
+    "T7": """Based on the risk data provided, the top 3 risks for the ABCDE Ltd project are as follows:
 
-    "T8": """Completed milestones so far:
-Phase 1 milestones: Project charter signed off, Team structure finalized, Initial stakeholder alignment meeting completed.
-Phase 2 milestones: Current systems audit report completed, Gap analysis report delivered.""",
+1. R01 [Data Quality and Availability]
+   - Category: Data Management
+   - Description: Incomplete or unstructured data.
+   - Impact: Poor model performance.
+   - Mitigation: Early data audits and data governance.
+   - Justification: Data quality is fundamental to the success of AI models.
 
-    "T9": """Current project phase analysis:
-Based on the timeline, the project is currently in Phase 3 - Use Case Selection (Weeks 5-6).
-Next phase: Phase 4 - Pilot Design (Weeks 7-10) which involves data collection, model design for demand forecasting and route optimization.""",
+2. R02 [Integration Issues]
+   - Category: Technical Integration
+   - Description: Difficulty integrating AI with legacy systems.
+   - Impact: Deployment delays.
+   - Mitigation: Integration roadmap, APIs/middleware.
+   - Justification: Integration difficulties can halt progress, impacting timelines and costs.
 
-    "T10": """Full Risk Assessment Report - All 10 Risks:
-R01 - Data Quality & Availability: Poor model performance. Mitigation: Early data audits.
-R02 - Integration Issues: Deployment delays. Mitigation: Integration roadmap.
-R03 - Talent & Skills Gap: Vendor overreliance. Mitigation: Staff training.
-R04 - Change Management: Low adoption. Mitigation: Change management plan.
-R05 - Vendor Lock-in: Flexibility issues. Mitigation: Multi-vendor strategy.
-R06 - Data Privacy & Security: Compliance risk. Mitigation: Privacy by design.
-R07 - Model Bias & Fairness: Unfair outcomes. Mitigation: Bias audits.
-R08 - Regulatory Compliance: Legal exposure. Mitigation: Legal review.
-R09 - Infrastructure Scalability: Performance issues. Mitigation: Cloud-based infrastructure.
-R10 - Stakeholder Resistance: Project delays. Mitigation: Stakeholder engagement plan.""",
+3. R03 [Talent and Skills Gap]
+   - Category: Human Resources
+   - Description: Lack of internal AI/ML expertise.
+   - Impact: Vendor overreliance, slow progress.
+   - Mitigation: Staff training, hire specialists.
+   - Justification: A skills gap can slow down project implementation.""",
 
-    "T11": """Upcoming milestones in the next 2 weeks:
-Phase 3 milestone: Final list of prioritized AI use cases with success criteria.
-Phase 4 milestone: Working prototype models and data pipelines established.
-Note: Exact timing depends on current project date which was not provided.""",
+    "T8": """Based on the task board, the following tasks are blocked or at risk of missing their deadline:
 
-    "T12": """Subject: Sprint Update: Progress Summary and Key Highlights
+Blocked Tasks:
+1. Task T024: Security review of AI infrastructure
+   - Status: BLOCKED
+   - Assignee: James Wong
+   - Note: Waiting for security team availability.
+
+Tasks at Risk of Missing Their Deadline:
+1. Task T006: Identify data gaps and quality issues
+   - Status: In Progress
+   - Assignee: Priya Nair
+   - Potential Delay: If data issues are not resolved promptly, subsequent phases may be impacted.
+
+2. Task T025: Legal review of data usage
+   - Status: In Progress
+   - Assignee: Sarah Lin
+   - Potential Delay: Legal review may encounter delays, affecting compliance and ethical considerations.""",
+
+    "T9": """INSUFFICIENT INFORMATION: I need more detail to create a grounded plan. Please provide the following:
+
+1. Project description or goal
+2. Project scope or focus areas
+3. Specific tasks or activities to be included
+4. Key milestones or deliverables
+5. Team members involved or any relevant resources
+
+With this information, I can help generate a structured project plan.""",
+
+    "T10": """Current Project Status:
+
+- Done: 5
+- In Progress: 3
+- To Do: 16
+- Blocked: 1
+
+Total Tasks: 25""",
+
+    "T11": """The upcoming milestones in the next 2 weeks based on the project timeline are:
+
+Phase 2 - Current State Analysis (weeks 3-4):
+- Current systems audit report
+- Gap analysis report
+
+Phase 3 - Use Case Selection (weeks 5-6):
+- Final list of prioritized use cases with success criteria
+
+These milestones are the next in line as the project progresses.""",
+
+    "T12": """Subject: Sprint 2 Progress Update
 
 Dear Stakeholders,
 
-As we progress through Sprint 2, I am pleased to provide you with an update on our current status, accomplishments, and any concerns.
+I hope this message finds you well. Below is the progress update for Sprint 2 of our project at ABCDE Ltd.
 
 Progress Summary:
-We are currently focused on analyzing our current state and addressing data quality and system integration requirements.
+We are currently focusing on assessing our existing processes and systems, aimed at identifying data sources and gaps. Significant strides have been made in mapping our current logistics workflows.
 
-Key Accomplishments (Done Tasks) - Sprint 2:
-- T004 | Audit existing data infrastructure | STATUS: Done | Assignee: Priya Nair
-- T005 | Map current logistics workflows | STATUS: Done | Assignee: James Wong
+Key Accomplishments (Done tasks):
+- Audit existing data infrastructure - Completed by Priya Nair
+- Map current logistics workflows - Completed by James Wong
 
-Work in Progress - Sprint 2:
-- T006 | Identify data gaps and quality issues | STATUS: In Progress | Assignee: Priya Nair
+Work in Progress:
+- Identify data gaps and quality issues - In progress by Priya Nair
 
 Blockers/Concerns:
-- T024 | Security review of AI infrastructure | STATUS: BLOCKED | Assignee: James Wong | Note: waiting for security team availability. This may impact our timeline if not addressed promptly.
+It is important to note that the task Security review of AI infrastructure (T024) is currently blocked, awaiting availability from the security team, which may impact our timelines.
+
+Thank you for your continued support and engagement. We will keep you updated on our progress as we move forward.
 
 Best regards,
-Mira — Project Intelligence Assistant""",
 
+Mira - Project Intelligence Assistant""",
 }
 
 # ── LLM Judge function ───────────────────────────────────────────────────────
